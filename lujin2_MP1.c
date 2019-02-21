@@ -75,7 +75,7 @@ t: user defined data
  }
 
 /*
-Read from User Space
+This function is called then the /proc file is read
 filp: file pointer
 buf: points to the user buffer holding the data to be written or the empty buffer
 count: the size of the requested data transfer
@@ -127,7 +127,7 @@ ssize_t mp1_read (struct file *filp, char __user *buf, size_t count, loff_t *off
 
 
 /*
-Write to User
+his function is called with the /proc file is written
 filp: file pointer
 buf: points to the user buffer holding the data to be written or the empty buffer
 count: the size of the requested data transfer
