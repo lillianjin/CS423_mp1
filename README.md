@@ -2,8 +2,8 @@
 
 ## Command to run the program
 ### Basic Functions
-1) Compile the modules and user_app
-```make modules```
+1) Compile the modules and user_app\
+```make modules```\
 ```make app```
 
 2) Insert compiled module into the kernel\
