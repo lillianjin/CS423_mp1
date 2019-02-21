@@ -1,49 +1,33 @@
 #include "userapp.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+
+void register_proc(int pid) {
+	char buffer[4096];
+	sprintf(buffer, "echo %d >/proc/mp1/status", pid);
+	system(buffer);
+}
 
 void read_proc()
 {
-	char *buf = malloc(4096);
-    memset(buf, 0, 4096);
-	int fp = open("/proc/mp1/status", O_RDONLY);
-	read(fp, buf, 4096);
-	printf("%s", buf);
-    close(fp);
+	FILE * fp;
+	fp = fopen("/proc/mp1/status", "w+");
+	fprintf(fp, "%d", pid);
+    fclose(fp);
 }
 
-void write_proc(int pid)
-{
-	char *buf = malloc(4096);
-    memset(buf, 0, 4096);
-	int fp = open("/proc/mp1/status", O_WRONLY);
-	int count = sprintf(buf, "%d", pid);
-	write(fp, buf, count + 1);
-    close(fp);
+int factorial(int n){
+	if (n < 2) {
+		return 1;
+	}
+	return n*factorial(n-1);
 }
-
 
 int main(int argc, char* argv[])
 {
 	// Write the pid into proc file
 	int pid = getpid();
-	// Write from user
-	write_proc(pid);
-	for(int i=0; i<1000000000; i++){
-		// if(i%1000==0){
-		// 	printf("Loaded 1000 numbers!\n");
-		// }
-		long long res = 1;
-		for(int j=20; j > 0; j--){
-			res = res * j;
-		}
-	}
+	int n = 10;
+	register_proc(pid);
+	find_factorials(n);
 	// Read the proc file
 	read_proc();
 	return 0;
